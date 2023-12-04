@@ -14,6 +14,7 @@ const DB_NAME = process.env.DB_NAME;
 
 //middleware разширяет или дополняет базовые настройки express
 app.use(cors());
+app.use(express.json()); // нужно для того чтобы express понимал что все данные будут с фронтенда присылаться в формате json
 
 async function start() {
   try {
