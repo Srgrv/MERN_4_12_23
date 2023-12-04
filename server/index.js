@@ -1,6 +1,7 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import express from "express"; // создание приложения
+import mongoose from "mongoose"; // подключение к базе данных
+import dotenv from "dotenv"; // шифрование в формате .env
+import cors from "cors"; // необходим для того, чтобы бэкэнд разрешал запросы с разных API серверов
 
 const app = express();
 dotenv.config();
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 3001;
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
+
+//middleware разширяет или дополняет базовые настройки express
+app.use(cors());
 
 async function start() {
   try {
