@@ -79,8 +79,32 @@ export const login = async (req, res) => {
   }
 };
 
-//me
+//me - этот router необходим для того, чтобы всегда при обновлении страницы нам не нужно было логиться
 export const me = async (req, res) => {
   try {
-  } catch (error) {}
+    // ищем пользователя по id
+    const user = await User.findById(req.userId);
+
+    //проверка на наличии такого пользователся в базе данных
+    if (!user) {
+      return res.json({
+        message: "Такого пользователя не существует",
+      });
+    }
+
+    //создаем токен
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
+
+    //отправляем пользователя и токен
+    res.json({
+      user,
+      token,
+    });
+  } catch (error) {
+    res.json({
+      message: "Нет доступа",
+    });
+  }
 };
