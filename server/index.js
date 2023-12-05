@@ -3,6 +3,8 @@ import mongoose from "mongoose"; // подключение к базе данн�
 import dotenv from "dotenv"; // шифрование в формате .env
 import cors from "cors"; // необходим для того, чтобы бэкэнд разрешал запросы с разных API серверов
 
+import authRoute from "./routes/auth.js";
+
 const app = express();
 dotenv.config();
 
@@ -15,6 +17,9 @@ const DB_NAME = process.env.DB_NAME;
 //middleware разширяет или дополняет базовые настройки express
 app.use(cors());
 app.use(express.json()); // нужно для того чтобы express понимал что все данные будут с фронтенда присылаться в формате json
+
+//routes
+app.use("/api/auth", authRoute);
 
 async function start() {
   try {
