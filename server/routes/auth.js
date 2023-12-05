@@ -2,6 +2,8 @@ import { Router } from "express";
 
 //controllers
 import { register, login, me } from "../controllers/auth.js";
+//импортируем chechAuth для расширения запроса на http://localhost:3002/api/auth/me
+import { checkAuth } from "../utils/checkAuth.js";
 
 const router = new Router();
 
@@ -15,6 +17,7 @@ router.post("/login", login);
 
 //get me
 //http://localhost:3002/api/auth/me
-router.get("/me", me);
+// вставляем checkAuth до контроллера me
+router.get("/me", checkAuth, me);
 
 export default router;
